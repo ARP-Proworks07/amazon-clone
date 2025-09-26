@@ -1,0 +1,70 @@
+/* Custom scrollbar styles */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom utility classes */
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Custom transitions */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* Custom shadows */
+.shadow-custom {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Layout styles */
+.main-container {
+  max-width: 1920px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.content-wrapper {
+  flex: 1;
+  padding: 1rem;
+}
+
+/* Responsive containers */
+@media (max-width: 640px) {
+  .content-wrapper {
+    padding: 0.5rem;
+  }
+}
+
+/* Custom button styles */
+.btn-primary {
+  @apply bg-[#f3a847] text-black font-medium py-2 px-4 rounded-md 
+         hover:bg-[#f4b557] transition-colors duration-200;
+}
+
+.btn-secondary {
+  @apply bg-[#232f3e] text-white font-medium py-2 px-4 rounded-md 
+         hover:bg-[#37475a] transition-colors duration-200;
+}
