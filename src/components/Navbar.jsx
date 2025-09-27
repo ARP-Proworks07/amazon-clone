@@ -49,16 +49,23 @@ const Navbar = () => {
   return (
     <div className="w-full">
       {/* Main Navbar - Dark Blue Box */}
-      <div className="bg-[#0F3460] text-white">
+      <div className="bg-[#16213E] text-white">
         <div className="max-w-[1920px] mx-auto flex items-center justify-between px-4 py-3">
           {/* Left - Amazon Logo */}
           <Link to="/" className="flex items-center">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg"
-              alt="Amazon Logo"
-              className="h-8 cursor-pointer invert brightness-0 filter"
-            />
-            <span className="text-white ml-2 font-bold">.in</span>
+            <div className="relative inline-block">
+              <img
+                src="https://pngimg.com/uploads/amazon/amazon_PNG11.png"
+                alt="Amazon Logo"
+                style={{ 
+                  height: "35px", 
+                  cursor: "pointer",
+                  objectFit: "contain",
+                  marginTop: "2px"
+                }}
+              />
+              <span className="text-white absolute top-0 -right-5 font-bold">.in</span>
+            </div>
           </Link>
 
           {/* Center - Search Bar */}
@@ -77,8 +84,8 @@ const Navbar = () => {
                 placeholder="Search Amazon.in"
                 className="w-full p-2 text-black outline-none border-none"
               />
-              <button className="bg-[#E94560] px-6 rounded-r-md hover:bg-opacity-90 transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <button className="bg-[#febd69] px-6 rounded-r-md hover:bg-[#f3a847] transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </button>
@@ -87,7 +94,7 @@ const Navbar = () => {
 
           {/* Right - Login and Signup buttons */}
           <div className="flex items-center gap-4">
-            <button className="bg-[#E94560] hover:bg-opacity-90 transition-colors py-2 px-4 rounded-md text-white font-medium">
+            <button className="bg-[#febd69] hover:bg-[#f3a847] transition-colors py-2 px-4 rounded-md text-black font-medium">
               Login
             </button>
             <button className="border border-white hover:bg-white hover:text-[#0F3460] transition-colors py-2 px-4 rounded-md text-white font-medium">
@@ -98,7 +105,7 @@ const Navbar = () => {
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
-                <span className="absolute -top-1 -right-1 bg-[#E94560] text-white rounded-full h-5 w-5 flex items-center justify-center text-xs font-bold">
+                <span className="absolute -top-1 -right-1 bg-[#febd69] text-black rounded-full h-5 w-5 flex items-center justify-center text-xs font-bold">
                   0
                 </span>
               </div>
@@ -120,30 +127,14 @@ const Navbar = () => {
               >
                 <Link
                   to="#"
-                  className="flex items-center gap-1 cursor-pointer hover:text-[#E94560] transition-colors whitespace-nowrap font-medium"
+                  className="flex items-center gap-1 cursor-pointer hover:text-[#febd69] transition-colors whitespace-nowrap font-medium"
                 >
                   {item.icon && <span className="text-lg">{item.icon}</span>}
                   {item.name}
                   {item.isNew && (
-                    <span className="ml-1 text-xs bg-[#E94560] text-white px-2 py-0.5 rounded-full">
+                    <span className="ml-1 text-xs bg-[#febd69] text-black px-2 py-0.5 rounded-full">
                       NEW
                     </span>
-                  )}
-                  {item.subCategories && (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M19 9l-7 7-7-7"
-                      />
-                    </svg>
                   )}
                 </Link>
 
@@ -154,7 +145,7 @@ const Navbar = () => {
                       <Link
                         key={subIndex}
                         to="#"
-                        className="block px-4 py-2 hover:bg-gray-100 hover:text-[#E94560] transition-colors"
+                        className="block px-4 py-2 hover:bg-gray-100 hover:text-[#febd69] transition-colors"
                       >
                         {subItem}
                       </Link>
