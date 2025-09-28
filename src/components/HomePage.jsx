@@ -34,35 +34,58 @@ const HomePage = () => {
   const featuredProducts = [
     {
       id: 101,
-      name: "Wireless Earbuds",
+      name: "Premium Wireless Earbuds",
       image: "https://m.media-amazon.com/images/I/61QRgOgBx0L._AC_UL320_.jpg",
-      price: "₹1,299",
-      originalPrice: "₹2,999",
+      price: 1299,
+      originalPrice: 2999,
       rating: 4.5,
-      reviewCount: 1245
+      reviewCount: 1245,
+      category: "Electronics"
     },
     {
       id: 102,
       name: "Smart Watch Series 5",
       image: "https://m.media-amazon.com/images/I/71fwbMm1NBL._AC_UL320_.jpg",
-      price: "₹2,499",
-      originalPrice: "₹4,999",
+      price: 2499,
+      originalPrice: 4999,
       rating: 4.3,
-      reviewCount: 856
+      reviewCount: 856,
+      category: "Electronics"
     },
     {
       id: 103,
       name: "Bluetooth Speaker",
       image: "https://m.media-amazon.com/images/I/61y2VVWcGBL._AC_UL320_.jpg",
-      price: "₹1,999",
-      originalPrice: "₹3,499",
+      price: 1999,
+      originalPrice: 3499,
       rating: 4.7,
-      reviewCount: 932
+      reviewCount: 932,
+      category: "Electronics"
+    },
+    {
+      id: 104,
+      name: "Laptop Backpack with USB Charging Port",
+      image: "https://m.media-amazon.com/images/I/71cXBgoa3IL._AC_UL320_.jpg",
+      price: 1499,
+      originalPrice: 2499,
+      rating: 4.4,
+      reviewCount: 1876,
+      category: "Accessories"
+    },
+    {
+      id: 105,
+      name: "Fitness Tracker with Heart Rate Monitor",
+      image: "https://m.media-amazon.com/images/I/61JM+MhfRiL._AC_UL320_.jpg",
+      price: 1799,
+      originalPrice: 2999,
+      rating: 4.2,
+      reviewCount: 732,
+      category: "Electronics"
     },
     {
       id: 104,
       name: "Laptop Backpack",
-      image: "https://m.media-amazon.com/images/I/71rSq80kdzL._AC_UL320_.jpg",
+      image: "https://redhorns.in/cdn/shop/files/Artboard1.jpg?v=1705495335&width=2048",
       price: "₹899",
       originalPrice: "₹1,499",
       rating: 4.4,
@@ -71,7 +94,7 @@ const HomePage = () => {
     {
       id: 105,
       name: "Smartphone Holder",
-      image: "https://m.media-amazon.com/images/I/61b0vQBO5AL._AC_UL320_.jpg",
+      image: "https://5.imimg.com/data5/SELLER/Default/2021/10/AG/PM/WX/136078663/mobile-holder-for-smart-phones-500x500.jpg",
       price: "₹349",
       originalPrice: "₹699",
       rating: 4.1,
@@ -83,18 +106,18 @@ const HomePage = () => {
   const heroBanners = [
     {
       id: 1,
-      image: "https://m.media-amazon.com/images/I/61TD5JLGhIL._SX3000_.jpg",
-      alt: "Prime Day Deals"
+      image: "https://images-eu.ssl-images-amazon.com/images/G/31/img22/Electronics/BAU/Page/Revamp/Creatives/Header/Electronics_PC.jpg",
+      alt: "Electronics Deals"
     },
     {
       id: 2,
-      image: "https://m.media-amazon.com/images/I/71tIrZqybrL._SX3000_.jpg",
-      alt: "Electronics Sale"
+      image: "https://images-eu.ssl-images-amazon.com/images/G/31/img21/Wireless/WLA/TS/D37847648_Wearables_mayhem_Design_PC_Hero_3000x1200._CB640235130_.jpg",
+      alt: "Wearables Sale"
     },
     {
       id: 3,
-      image: "https://m.media-amazon.com/images/I/61jovjd+f9L._SX3000_.jpg",
-      alt: "Back to School"
+      image: "https://images-eu.ssl-images-amazon.com/images/G/31/prime/ACQ/Homepage_DesktopHeroTemplate_3000x1200._CB592854012_.jpg",
+      alt: "Prime Membership"
     }
   ];
 
@@ -106,7 +129,8 @@ const HomePage = () => {
           <img 
             src={heroBanners[0].image} 
             alt={heroBanners[0].alt} 
-            className="w-full object-cover h-[300px] md:h-[400px]"
+            className="w-full object-contain md:object-fill h-auto"
+            style={{ maxHeight: "500px" }}
           />
         </div>
         <div className="absolute left-0 bottom-0 w-full h-[50px] bg-gradient-to-t from-gray-100 to-transparent"></div>
@@ -146,7 +170,11 @@ const HomePage = () => {
           
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {featuredProducts.map((product) => (
-              <div key={product.id} className="border rounded-md p-3 hover:shadow-lg transition-shadow">
+              <Link 
+                to={`/product/${product.id}`} 
+                key={product.id} 
+                className="border rounded-md p-3 hover:shadow-lg transition-shadow bg-white"
+              >
                 <div className="h-[150px] flex items-center justify-center mb-2">
                   <img 
                     src={product.image} 
@@ -158,16 +186,18 @@ const HomePage = () => {
                 <div className="flex items-center mt-1">
                   <div className="flex text-yellow-400">
                     {[...Array(5)].map((_, i) => (
-                      <span key={i} className="text-xs">★</span>
+                      <span key={i} className="text-xs">
+                        {i < Math.floor(product.rating) ? "★" : i < product.rating ? "★" : "☆"}
+                      </span>
                     ))}
                   </div>
                   <span className="text-xs text-gray-500 ml-1">({product.reviewCount})</span>
                 </div>
                 <div className="mt-1">
-                  <span className="font-bold text-lg">{product.price}</span>
-                  <span className="text-gray-500 line-through text-xs ml-2">{product.originalPrice}</span>
+                  <span className="font-bold text-lg">₹{product.price.toLocaleString()}</span>
+                  <span className="text-gray-500 line-through text-xs ml-2">₹{product.originalPrice.toLocaleString()}</span>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

@@ -1,9 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [hoveredCategory, setHoveredCategory] = useState(null);
+  const [cartCount, setCartCount] = useState(0);
+  
+  useEffect(() => {
+    const updateCartCount = () => {
+      try {
+        const storedCart = localStorage.getItem('cart');
+        if (storedCart) {
+          const cart = JSON.parse(storedCart);
+          const count = cart.reduce((total, item) => total + item.quantity, 0);
+          setCartCount(count);
+        } else {
+          setCartCount(0);
+        }
+      } catch (error) {
+        console.error('Error reading cart from localStorage:', error);
+        setCartCount(0);
+      }
+    };
+    
+    // Initial cart count
+    updateCartCount();
+    
+    // Add event listener to update cart count when localStorage changes
+    window.addEventListener('storage', updateCartCount);
+    
+    // Custom event for updating cart without page refresh
+    window.addEventListener('cartUpdated', updateCartCount);
+    
+    return () => {
+      window.removeEventListener('storage', updateCartCount);
+      window.removeEventListener('cartUpdated', updateCartCount);
+    };
+  }, []);
 
   const menuItems = [
     {
@@ -94,19 +127,19 @@ const Navbar = () => {
 
           {/* Right - Login and Signup buttons */}
           <div className="flex items-center gap-4">
-            <button className="bg-[#febd69] hover:bg-[#f3a847] transition-colors py-2 px-4 rounded-md text-black font-medium">
+            <Link to="/login" className="bg-[#febd69] hover:bg-[#f3a847] transition-colors py-2 px-4 rounded-md text-black font-medium">
               Login
-            </button>
-            <button className="border border-white hover:bg-white hover:text-[#0F3460] transition-colors py-2 px-4 rounded-md text-white font-medium">
+            </Link>
+            <Link to="/signup" className="border border-white hover:bg-white hover:text-[#0F3460] transition-colors py-2 px-4 rounded-md text-white font-medium">
               Sign Up
-            </button>
+            </Link>
             <Link to="/cart" className="flex items-center ml-2">
               <div className="relative">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
                 <span className="absolute -top-1 -right-1 bg-[#febd69] text-black rounded-full h-5 w-5 flex items-center justify-center text-xs font-bold">
-                  0
+                  {cartCount}
                 </span>
               </div>
             </Link>
