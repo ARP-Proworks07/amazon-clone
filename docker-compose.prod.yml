@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  mongodb:
+    image: mongo:latest
+    restart: always
+    volumes:
+      - mongodb_data:/data/db
+
+  backend:
+    image: your-docker-registry/amazon-clone-backend:latest
+    restart: always
+    environment:
+      - PORT=5000
+      - MONGODB_URI=mongodb://mongodb:27017/amazon_clone
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongodb
+
+  frontend:
+    image: your-docker-registry/amazon-clone-frontend:latest
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  mongodb_data:
