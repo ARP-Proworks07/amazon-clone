@@ -23,6 +23,18 @@ app.use('/api/products', productRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/cart', cartRoutes);
 
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+  const healthCheck = {
+    status: 'OK',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    environment: process.env.NODE_ENV || 'development',
+    database: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected'
+  };
+  res.status(200).json(healthCheck);
+});
+
 // Root route
 app.get('/', (req, res) => {
   res.send('Amazon Clone API is running...');
